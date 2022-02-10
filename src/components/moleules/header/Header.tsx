@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Logo } from '../../atoms/logo/Logo';
 import { Search } from '../../atoms/search/Search';
-import { motion } from 'framer-motion';
-const Nav = styled.nav`
+import { motion, useAnimation, useViewportScroll } from 'framer-motion';
+const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: black;
   font-size: 14px;
   padding: 20px 60px;
   color: white;
@@ -45,11 +44,27 @@ const CirCle = styled(motion.span)`
   margin-top: 10px;
 `;
 
+const scrollVars = {
+  start: { backgroundColor: 'rgba(0, 0, 0, 0)' },
+  active: { backgroundColor: 'rgba(0, 0, 0, 1)' },
+};
+
 export const Header = () => {
   const matchHome = useMatch('/');
   const matchTV = useMatch('/tv');
+  const navAnimation = useAnimation();
+  const { scrollY } = useViewportScroll();
+  useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() > 80) {
+        navAnimation.start('scroll');
+      } else {
+        navAnimation.start('top');
+      }
+    });
+  }, [scrollY, navAnimation]);
   return (
-    <Nav>
+    <Nav variants={scrollVars} initial="start" animate={navAnimation}>
       <Col>
         <Logo />
         <Items>

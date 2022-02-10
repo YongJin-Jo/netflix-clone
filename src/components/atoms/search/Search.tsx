@@ -1,17 +1,29 @@
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Svg = styled(motion.svg)`
   color: white;
   height: 25px;
+  z-index: 9999;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Input = styled(motion.input)`
   transform-origin: right center;
+  background-color: transparent;
+  border: 1px solid ${props => props.theme.white.lighter};
   position: absolute;
-
+  width: 210px;
+  padding: 10px;
+  padding-left: 30px;
   right: 100px;
+  color: white;
+  font-size: 16px;
 `;
 
 export const Search = () => {
@@ -20,10 +32,10 @@ export const Search = () => {
     setToggle(prev => !prev);
   };
   return (
-    <>
+    <Wrapper>
       <Svg
-        animate={{ x: toggle ? -180 : 0 }}
-        transition={{ type: 'linear' }}
+        animate={{ x: toggle ? -200 : 0 }}
+        transition={{ duration: 0.23 }}
         onClick={onClick}
         fill="currentColor"
         viewBox="0 0 20 20"
@@ -35,14 +47,12 @@ export const Search = () => {
           clipRule="evenodd"
         ></path>
       </Svg>
-      {toggle && (
-        <Input
-          transition={{ duration: 1 }}
-          animate={{ scaleX: toggle ? 1 : 0 }}
-          type="text"
-          placeholder=""
-        />
-      )}
-    </>
+
+      <Input
+        animate={{ scaleX: toggle ? 1 : 0 }}
+        type="text"
+        placeholder="Search for movie or tv show..."
+      />
+    </Wrapper>
   );
 };
