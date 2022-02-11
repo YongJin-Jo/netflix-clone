@@ -55,6 +55,9 @@ table {
 }
 body {
   font-family: 'Source Sans Pro', sans-serif;
+  color: ${props => props.theme.white.darker};
+  background-color: ${props => props.theme.black.darker};
+  overflow-x:hidden
 }
 a {
   text-decoration:none;
