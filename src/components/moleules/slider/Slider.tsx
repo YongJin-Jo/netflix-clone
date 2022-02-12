@@ -2,7 +2,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IGetMoviesResult } from '../../../type/movieDefind';
-import { createImgPath } from '../../../util/imgPath';
 import { SliderlistItem } from '../../atoms/sliderListItem/SliderlistItem';
 
 const SliderList = styled.div`
@@ -60,7 +59,7 @@ export const Slider = ({ data }: IPrpos) => {
             .slice(1)
             .slice(offset * index, offset * index + offset)
             .map(item => (
-              <SliderlistItem movieInfo={item} />
+              <SliderlistItem key={item.id} movieInfo={item} />
             ))}
         </Row>
       </AnimatePresence>

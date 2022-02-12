@@ -1,10 +1,13 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useQuery } from 'react-query';
+import { useMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { getMovies } from '../../../api/api';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
+import { MovieListDetail } from '../../moleules/movieListDetail/MovieListDetail';
 import { Slider } from '../../moleules/slider/Slider';
 
 const Wrapper = styled.div`
@@ -12,7 +15,7 @@ const Wrapper = styled.div`
 `;
 
 const Banner = styled.div<{ bgPhoto: string }>`
-  height: 85vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,7 +39,7 @@ export const Home = () => {
     ['movies', 'nowPlaying'],
     getMovies
   );
-
+  const modalMatch = useMatch('/movies/:id');
   return (
     <Wrapper>
       {isLoading ? (
@@ -48,6 +51,9 @@ export const Home = () => {
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <Slider data={data} />
+          <AnimatePresence>
+            {modalMatch ? <MovieListDetail data={data} /> : null}
+          </AnimatePresence>
         </>
       )}
     </Wrapper>

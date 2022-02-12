@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Movies } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
@@ -63,8 +64,14 @@ interface IPops {
 }
 
 export const SliderlistItem = ({ movieInfo }: IPops) => {
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate(`/movies/${movieInfo.id}`);
+  };
   return (
     <Box
+      layoutId={movieInfo.id.toString()}
+      onClick={onClick}
       variants={boxVars}
       initial="nomal"
       whileHover="hover"

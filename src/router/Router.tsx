@@ -7,7 +7,9 @@ export const Router = () => {
     <Routes>
       <Route path="/tv"></Route>
       <Route path="/search"></Route>
-      <Route path="/" element={<Home />}></Route>
+      <Route path="/" element={<Home />}>
+        <Route path="/movies/:movieId" element={<Home />}></Route>
+      </Route>
     </Routes>
   );
 };
