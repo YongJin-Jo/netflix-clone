@@ -27,7 +27,7 @@ const Title = styled.h2`
 `;
 
 const Overview = styled.p`
-  font-size: 30px;
+  font-size: 25px;
   width: 50%;
 `;
 

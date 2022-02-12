@@ -11,19 +11,11 @@ const SliderList = styled.div`
 `;
 const Row = styled(motion.div)`
   display: grid;
+  position: absolute;
   gap: 10px;
   grid-template-columns: repeat(6, 1fr);
-  position: absolute;
   width: 100%;
   padding: 10px;
-`;
-const Box = styled(motion.div)<{ bgpoto: string }>`
-  background-image: url(${props => props.bgpoto});
-  background-position: center center;
-  background-color: white;
-  height: 200px;
-  color: red;
-  font-size: 66px;
 `;
 
 const rowVarinants = {
