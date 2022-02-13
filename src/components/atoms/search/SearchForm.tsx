@@ -1,5 +1,11 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import styled from 'styled-components';
 
 const Svg = styled(motion.svg)`
@@ -8,7 +14,7 @@ const Svg = styled(motion.svg)`
   z-index: 9999;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
   align-items: center;
 `;
@@ -26,13 +32,27 @@ const Input = styled(motion.input)`
   font-size: 16px;
 `;
 
-export const Search = () => {
+export const SearchForm = () => {
   const [toggle, setToggle] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const { register, handleSubmit, setValue } = useForm<IFrom>();
+  const navigate = useNavigate();
   const onClick = () => {
     setToggle(prev => !prev);
   };
+
+  interface IFrom {
+    keyward: string;
+  }
+
+  const onValid = (data: IFrom) => {
+    setValue('keyward', '');
+    setSearchParams(createSearchParams({ keyward: data.keyward }));
+    navigate(`/search?keyward=${data.keyward}`);
+  };
   return (
-    <Wrapper>
+    <Wrapper onSubmit={handleSubmit(onValid)}>
       <Svg
         animate={{ x: toggle ? -200 : 0 }}
         transition={{ duration: 0.23 }}
@@ -47,8 +67,8 @@ export const Search = () => {
           clipRule="evenodd"
         ></path>
       </Svg>
-
       <Input
+        {...register('keyward', { required: true, minLength: 2 })}
         animate={{ scaleX: toggle ? 1 : 0 }}
         type="text"
         placeholder="Search for movie or tv show..."
