@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import styled from 'styled-components';
 import { Movies } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
@@ -64,14 +68,16 @@ interface IPops {
 }
 
 export const SliderlistItem = ({ movieInfo }: IPops) => {
-  const navigate = useNavigate();
-  const onClick = () => {
-    navigate(`/movies/${movieInfo.id}`);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const onClick = (movieId: string) => {
+    setSearchParams(createSearchParams({ movieId: movieId }));
   };
   return (
     <Box
       layoutId={movieInfo.id.toString()}
-      onClick={onClick}
+      onClick={() => {
+        onClick(movieInfo.id.toString());
+      }}
       variants={boxVars}
       initial="nomal"
       whileHover="hover"

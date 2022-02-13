@@ -1,7 +1,7 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { useMatch } from 'react-router-dom';
+import { useMatch, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getMovies } from '../../../api/api';
 import { IGetMoviesResult } from '../../../type/movieDefind';
@@ -35,11 +35,12 @@ const Overview = styled.p`
 `;
 
 export const Home = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const movieId = searchParams.get('movieId');
   const { data, isLoading } = useQuery<IGetMoviesResult>(
     ['movies', 'nowPlaying'],
     getMovies
   );
-  const modalMatch = useMatch('/movies/:id');
   return (
     <Wrapper>
       {isLoading ? (
@@ -52,7 +53,7 @@ export const Home = () => {
           </Banner>
           <Slider data={data} />
           <AnimatePresence>
-            {modalMatch ? <MovieListDetail data={data} /> : null}
+            {movieId ? <MovieListDetail data={data} /> : null}
           </AnimatePresence>
         </>
       )}

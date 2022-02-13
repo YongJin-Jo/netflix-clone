@@ -1,6 +1,5 @@
 import { motion, useViewportScroll } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { IGetMoviesResult, Movies } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
@@ -23,6 +22,7 @@ const MovieInfo = styled(motion.div)`
   right: 0;
   margin: 0 auto;
   border-radius: 15px;
+  z-index: 999;
 `;
 
 const Cover = styled.div<{ bgphoto: string }>`
@@ -38,29 +38,40 @@ const Cover = styled.div<{ bgphoto: string }>`
 const Title = styled.h3`
   font-size: 32px;
   position: absolute;
+  bottom: 0;
+  margin: 10px;
 `;
-const Overview = styled.p``;
+const Overview = styled.p`
+  margin: 20px;
+`;
 
 interface IProps {
   data: IGetMoviesResult | undefined;
 }
 
 export const MovieListDetail = ({ data }: IProps) => {
-  const parms = useParams();
-  const { scrollY } = useViewportScroll();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const keyward = searchParams.get('keyward');
+  const movieId = searchParams.get('movieId');
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const { scrollY } = useViewportScroll();
+
   const onClick = () => {
-    navigate('/');
+    if (keyward != null) {
+      navigate(`${location.pathname}?keyward=${keyward}`);
+    }
+    navigate(`${location.pathname}`);
   };
-  const movieDetailData = (parms.movieId &&
-    data?.results.find(
-      movie => movie.id.toString() === parms.movieId
-    )) as Movies;
+
+  const movieDetailData = (movieId &&
+    data?.results.find(movie => movie.id.toString() === movieId)) as Movies;
 
   return (
     <Overlay animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClick}>
       <MovieInfo
-        layoutId={parms.movieId}
+        layoutId={movieId as string}
         style={{
           top: scrollY.get(),
         }}
