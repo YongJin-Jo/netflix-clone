@@ -11,4 +11,6 @@ export const theme: DefaultTheme = {
     lighter: '#fff',
     darker: '#e5e5e5',
   },
+  defalutImg:
+    'https://skillz4kidzmartialarts.com/wp-content/uploads/2017/04/default-image.jpg',
 };

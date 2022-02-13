@@ -1,19 +1,19 @@
 import { AnimatePresence } from 'framer-motion';
-import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import {
-  createSearchParams,
-  matchPath,
-  useMatch,
-  useSearchParams,
-} from 'react-router-dom';
-import styled from 'styled-components';
+import { createSearchParams, useSearchParams } from 'react-router-dom';
 import { fetchSearchMovies } from '../../../api/api';
 import { IGetMoviesResult } from '../../../type/movieDefind';
+import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
-import { SliderlistItem } from '../../atoms/sliderListItem/SliderlistItem';
 import { MovieListDetail } from '../../moleules/movieListDetail/MovieListDetail';
-import { BigTitle, Container, Item, ItemList, Wrapper } from './styled.css';
+import {
+  BigTitle,
+  Box,
+  Container,
+  Item,
+  ItemList,
+  Wrapper,
+} from './styled.css';
 
 export const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -51,7 +51,13 @@ export const Search = () => {
                   onClick(item.id.toString());
                 }}
               >
-                {item.title}
+                <Box
+                  layoutId={movieId as string}
+                  bgpoto={createImgPath(item.backdrop_path, 'w500')}
+                >
+                  {' '}
+                  {item.title}
+                </Box>
               </Item>
             ))}
           </ItemList>

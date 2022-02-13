@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -22,5 +23,13 @@ const ItemList = styled.ul`
 `;
 
 const Item = styled.li``;
+const Box = styled(motion.div)<{ bgpoto: string }>`
+  background-size: 100% 200px;
+  background-image: url(${props => props.bgpoto});
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: ${props => props.theme.black.darker};
+  height: 200px;
+`;
 
-export { Wrapper, Container, BigTitle, Item, ItemList };
+export { Wrapper, Container, BigTitle, Item, ItemList, Box };

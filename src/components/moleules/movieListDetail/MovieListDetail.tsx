@@ -19,9 +19,9 @@ export const MovieListDetail = ({ data }: IProps) => {
 
   const onClick = () => {
     if (keyward != null) {
-      navigate(`${location.pathname}?keyward=${keyward}`);
+      return navigate(`${location.pathname}?keyward=${keyward}`);
     }
-    navigate(`${location.pathname}`);
+    return navigate(`${location.pathname}`);
   };
 
   const movieDetailData = (movieId &&

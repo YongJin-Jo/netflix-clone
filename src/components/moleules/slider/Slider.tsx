@@ -1,6 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { SliderlistItem } from '../../atoms/sliderListItem/SliderlistItem';
 import { Row, SliderList } from './styled.css';
