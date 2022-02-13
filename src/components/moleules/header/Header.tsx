@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { Logo } from '../../atoms/logo/Logo';
-import { Search } from '../../atoms/search/Search';
+import { SearchForm } from '../../atoms/search/SearchForm';
 import { motion, useAnimation, useViewportScroll } from 'framer-motion';
 const Nav = styled(motion.nav)`
   display: flex;
@@ -83,7 +83,7 @@ export const Header = () => {
         </Items>
       </Col>
       <Col>
-        <Search />
+        <SearchForm />
       </Col>
     </Nav>
   );
