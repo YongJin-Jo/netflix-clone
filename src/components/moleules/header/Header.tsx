@@ -1,48 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link, useMatch } from 'react-router-dom';
-import styled from 'styled-components';
 import { Logo } from '../../atoms/logo/Logo';
 import { SearchForm } from '../../atoms/search/SearchForm';
-import { motion, useAnimation, useViewportScroll } from 'framer-motion';
-const Nav = styled(motion.nav)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  font-size: 14px;
-  padding: 20px 60px;
-  color: white;
-`;
-const Col = styled.div`
-  margin-right: 20px;
-  display: flex;
-`;
-const Items = styled.ul`
-  display: flex;
-`;
-const Item = styled.li`
-  margin-right: 20px;
-  color: ${props => props.theme.white.darker};
-  transition: color 0.3s ease-in-out;
-  a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  &:hover {
-    color: ${props => props.theme.white.lighter};
-  }
-`;
-
-const CirCle = styled(motion.span)`
-  width: 10px;
-  height: 10px;
-  background: ${props => props.theme.red};
-  border-radius: 5px;
-  margin-top: 10px;
-`;
+import { useAnimation, useViewportScroll } from 'framer-motion';
+import { Col, Items, Nav, Item, CirCle } from './styled.css';
 
 const scrollVars = {
   top: { backgroundColor: 'rgba(0, 0, 0, 0)' },

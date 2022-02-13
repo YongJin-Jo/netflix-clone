@@ -1,17 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-
-const Svg = styled(motion.svg)`
-  margin-right: 50px;
-  width: 95px;
-  height: 25px;
-  fill: ${props => props.theme.red};
-  cursor: pointer;
-  path {
-    stroke-width: 6px;
-  }
-`;
+import { Svg } from './styled.css';
 
 const logoVars = {
   start: { scale: 1 },

@@ -3,19 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { SliderlistItem } from '../../atoms/sliderListItem/SliderlistItem';
-
-const SliderList = styled.div`
-  position: relative;
-  top: -100px;
-`;
-const Row = styled(motion.div)`
-  display: grid;
-  position: absolute;
-  gap: 10px;
-  grid-template-columns: repeat(6, 1fr);
-  width: 100%;
-  padding: 10px;
-`;
+import { Row, SliderList } from './styled.css';
 
 const rowVarinants = {
   hidden: { x: window.outerWidth + 10 },
