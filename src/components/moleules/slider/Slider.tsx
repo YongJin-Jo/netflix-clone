@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import React, { useState } from 'react';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
-import { dragingAtom } from '../../../store/stroe';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { animationStroe } from '../../../store/stroe';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { SliderlistItem } from '../../atoms/sliderListItem/SliderlistItem';
 import { ButtonLeft, ButtonRight, Row, SliderWrapper } from './styled.css';
@@ -23,7 +23,7 @@ interface IPrpos {
 export const Slider = ({ data }: IPrpos) => {
   const offset = 6;
   const swipeConfidenceThreshold = 10000;
-  const setIsdraging = useSetRecoilState(dragingAtom);
+  const [isDragging, setIsDragging] = useRecoilState(animationStroe);
   const [leving, setLeving] = useState(false);
   const [index, setIndex] = useState(0);
   const paginate = (sliderIndex: number) => {
@@ -73,8 +73,10 @@ export const Slider = ({ data }: IPrpos) => {
           key={index}
           drag="x"
           dragElastic={1}
+          onDragStart={() => {
+            setIsDragging([{ isDragging: true }]);
+          }}
           onDragEnd={(e, { offset, velocity }) => {
-            setIsdraging(true);
             const swipe = swipePower(offset.x, velocity.x);
 
             if (swipe < -swipeConfidenceThreshold) {
@@ -82,8 +84,6 @@ export const Slider = ({ data }: IPrpos) => {
             } else if (swipe > swipeConfidenceThreshold) {
               paginate(-1);
             }
-            setIsdraging(false);
-
             return;
           }}
         >

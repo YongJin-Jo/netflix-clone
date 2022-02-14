@@ -1,8 +1,12 @@
 import { atom } from 'recoil';
 
-const dragingAtom = atom({
+interface animationStateDefine {
+  isDragging: boolean;
+}
+
+const animationStroe = atom<animationStateDefine[]>({
   key: 'drag',
-  default: false,
+  default: [{ isDragging: false }],
 });
 
-export { dragingAtom };
+export { animationStroe };

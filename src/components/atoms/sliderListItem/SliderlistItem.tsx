@@ -4,6 +4,8 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { animationStroe } from '../../../store/stroe';
 import { Movies } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Box, Info } from './styled.css';
@@ -40,14 +42,23 @@ interface IPops {
 
 export const SliderlistItem = ({ movieInfo }: IPops) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const onClick = (movieId: string) => {
+  const [isDragging, setIsDragging] = useRecoilState(animationStroe);
+  const onShowMovieInfo = (movieId: string) => {
+    console.log('onShowMovieInfo');
     setSearchParams(createSearchParams({ movieId: movieId }));
+  };
+
+  const onDragState = () => {
+    console.log('onDragState');
+    setIsDragging([{ isDragging: false }]);
   };
   return (
     <Box
       layoutId={movieInfo.id.toString()}
       onClick={() => {
-        onClick(movieInfo.id.toString());
+        isDragging[0].isDragging
+          ? onDragState()
+          : onShowMovieInfo(movieInfo.id.toString());
       }}
       variants={boxVars}
       initial="nomal"
