@@ -1,6 +1,6 @@
-import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import React, { useState } from 'react';
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { animationStroe } from '../../../store/stroe';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { SliderlistItem } from '../../atoms/sliderListItem/SliderlistItem';

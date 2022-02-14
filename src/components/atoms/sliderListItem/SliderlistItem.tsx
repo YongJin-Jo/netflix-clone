@@ -1,10 +1,6 @@
 import React from 'react';
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from 'react-router-dom';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { createSearchParams, useSearchParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import { animationStroe } from '../../../store/stroe';
 import { Movies } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';

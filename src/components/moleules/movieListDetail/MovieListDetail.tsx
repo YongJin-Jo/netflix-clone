@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useViewportScroll } from 'framer-motion';
+import { AnimatePresence, useViewportScroll } from 'framer-motion';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { animationStroe } from '../../../store/stroe';

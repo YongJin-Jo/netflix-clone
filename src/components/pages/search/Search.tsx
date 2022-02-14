@@ -1,7 +1,6 @@
-import { AnimatePresence } from 'framer-motion';
 import { useQuery } from 'react-query';
 import { createSearchParams, useSearchParams } from 'react-router-dom';
-import { fetchSearchMovies } from '../../../api/api';
+import { fetchSearchMovies } from '../../../api/movies';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
