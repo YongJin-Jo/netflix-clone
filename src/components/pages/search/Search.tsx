@@ -46,24 +46,19 @@ export const Search = () => {
           <ItemList>
             {data?.results.map(item => (
               <Item
+                layoutId={movieId as string}
                 key={item.id}
                 onClick={() => {
                   onClick(item.id.toString());
                 }}
               >
-                <Box
-                  layoutId={movieId as string}
-                  bgpoto={createImgPath(item.backdrop_path, 'w500')}
-                >
-                  {' '}
+                <Box bgpoto={createImgPath(item.backdrop_path, 'w500')}>
                   {item.title}
                 </Box>
               </Item>
             ))}
           </ItemList>
-          <AnimatePresence>
-            {movieId ? <MovieListDetail data={data} /> : null}
-          </AnimatePresence>
+          {movieId ? <MovieListDetail data={data} /> : null}
         </Container>
       )}
     </Wrapper>

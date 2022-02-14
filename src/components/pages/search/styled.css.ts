@@ -22,7 +22,7 @@ const ItemList = styled.ul`
   grid-template-columns: repeat(6, 1fr);
 `;
 
-const Item = styled.li``;
+const Item = styled(motion.li)``;
 const Box = styled(motion.div)<{ bgpoto: string }>`
   background-size: 100% 200px;
   background-image: url(${props => props.bgpoto});

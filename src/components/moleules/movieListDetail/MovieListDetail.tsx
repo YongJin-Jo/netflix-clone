@@ -1,4 +1,4 @@
-import { motion, useViewportScroll } from 'framer-motion';
+import { AnimatePresence, motion, useViewportScroll } from 'framer-motion';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { IGetMoviesResult, Movies } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
@@ -28,24 +28,34 @@ export const MovieListDetail = ({ data }: IProps) => {
     data?.results.find(movie => movie.id.toString() === movieId)) as Movies;
 
   return (
-    <Overlay animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClick}>
-      <MovieInfo
-        layoutId={movieId as string}
-        style={{
-          top: scrollY.get(),
-        }}
-      >
-        <Cover
-          bgphoto={createImgPath(
-            movieDetailData ? movieDetailData.backdrop_path : '',
-            'w500'
-          )}
+    <AnimatePresence>
+      {movieId ? (
+        <Overlay
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClick}
         >
-          <Title>{movieDetailData ? movieDetailData.title : ''}</Title>
-        </Cover>
+          <MovieInfo
+            layoutId={movieId as string}
+            style={{
+              top: scrollY.get(),
+            }}
+          >
+            <Cover
+              bgphoto={createImgPath(
+                movieDetailData ? movieDetailData.backdrop_path : '',
+                'w500'
+              )}
+            >
+              <Title>{movieDetailData ? movieDetailData.title : ''}</Title>
+            </Cover>
 
-        <Overview>{movieDetailData ? movieDetailData.overview : ''}</Overview>
-      </MovieInfo>
-    </Overlay>
+            <Overview>
+              {movieDetailData ? movieDetailData.overview : ''}
+            </Overview>
+          </MovieInfo>
+        </Overlay>
+      ) : null}
+    </AnimatePresence>
   );
 };

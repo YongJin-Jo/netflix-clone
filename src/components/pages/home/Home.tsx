@@ -12,8 +12,6 @@ import { Slider } from '../../moleules/slider/Slider';
 import { Banner, Overview, Title, Wrapper } from './styled.css';
 
 export const Home = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const movieId = searchParams.get('movieId');
   const { data, isLoading } = useQuery<IGetMoviesResult>(
     ['movies', 'nowPlaying'],
     getMovies
@@ -29,9 +27,7 @@ export const Home = () => {
             <Overview>{data?.results[0].overview}</Overview>
           </Banner>
           <Slider data={data} />
-          <AnimatePresence>
-            {movieId ? <MovieListDetail data={data} /> : null}
-          </AnimatePresence>
+          <MovieListDetail data={data} />
         </>
       )}
     </Wrapper>
