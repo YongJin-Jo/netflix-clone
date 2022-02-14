@@ -1,5 +1,7 @@
 import { AnimatePresence, motion, useViewportScroll } from 'framer-motion';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { dragingAtom } from '../../../store/stroe';
 import { IGetMoviesResult, Movies } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Cover, MovieInfo, Overlay, Overview, Title } from './styled.css';
@@ -10,6 +12,7 @@ interface IProps {
 
 export const MovieListDetail = ({ data }: IProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const isDraging = useRecoilValue(dragingAtom);
   const keyward = searchParams.get('keyward');
   const movieId = searchParams.get('movieId');
   const location = useLocation();
@@ -29,7 +32,7 @@ export const MovieListDetail = ({ data }: IProps) => {
 
   return (
     <AnimatePresence>
-      {movieId ? (
+      {!isDraging && movieId ? (
         <Overlay
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

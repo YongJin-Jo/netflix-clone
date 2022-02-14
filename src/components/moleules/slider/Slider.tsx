@@ -1,5 +1,7 @@
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import React, { useState } from 'react';
+import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { dragingAtom } from '../../../store/stroe';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { SliderlistItem } from '../../atoms/sliderListItem/SliderlistItem';
 import { ButtonLeft, ButtonRight, Row, SliderWrapper } from './styled.css';
@@ -10,15 +12,21 @@ const rowNextVarinants = {
   exit: { x: -window.outerWidth - 100 },
 };
 
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
+
 interface IPrpos {
   data: IGetMoviesResult | undefined;
 }
 
 export const Slider = ({ data }: IPrpos) => {
   const offset = 6;
+  const swipeConfidenceThreshold = 10000;
+  const setIsdraging = useSetRecoilState(dragingAtom);
   const [leving, setLeving] = useState(false);
   const [index, setIndex] = useState(0);
-  const onClick = (sliderIndex: number) => {
+  const paginate = (sliderIndex: number) => {
     if (data) {
       if (leving) return;
       toggleLeaving();
@@ -26,7 +34,7 @@ export const Slider = ({ data }: IPrpos) => {
       const MaxIndx = Math.floor(totalMovie / offset) - 1;
       setIndex(prev =>
         prev === MaxIndx
-          ? prev + sliderIndex
+          ? 0
           : prev + sliderIndex < 0
           ? MaxIndx
           : prev + sliderIndex
@@ -41,7 +49,7 @@ export const Slider = ({ data }: IPrpos) => {
       <ButtonLeft
         whileHover={{ opacity: 1, scale: 1.1 }}
         onClick={() => {
-          onClick(-1);
+          paginate(-1);
         }}
       >
         <span>&larr;</span>
@@ -49,7 +57,7 @@ export const Slider = ({ data }: IPrpos) => {
       <ButtonRight
         whileHover={{ opacity: 1, scale: 1.1 }}
         onClick={() => {
-          onClick(1);
+          paginate(1);
         }}
       >
         <span>&#8594;</span>
@@ -63,6 +71,21 @@ export const Slider = ({ data }: IPrpos) => {
           exit="exit"
           transition={{ type: 'tween', duration: 1 }}
           key={index}
+          drag="x"
+          dragElastic={1}
+          onDragEnd={(e, { offset, velocity }) => {
+            setIsdraging(true);
+            const swipe = swipePower(offset.x, velocity.x);
+
+            if (swipe < -swipeConfidenceThreshold) {
+              paginate(1);
+            } else if (swipe > swipeConfidenceThreshold) {
+              paginate(-1);
+            }
+            setIsdraging(false);
+
+            return;
+          }}
         >
           {data?.results
             .slice(1)
