@@ -3,8 +3,14 @@ import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { animationStroe } from '../../../store/stroe';
 import { IGetMoviesResult } from '../../../type/movieDefind';
-import { SliderlistItem } from '../../atoms/sliderListItem/SliderlistItem';
-import { ButtonLeft, ButtonRight, Row, SliderWrapper } from './styled.css';
+import { MovieListItem } from '../../atoms/movieListItem/MovieListItem';
+import {
+  ButtonLeft,
+  ButtonRight,
+  Row,
+  SliderWrapper,
+  Topic,
+} from './styled.css';
 
 const rowNextVarinants = {
   hidden: { x: window.outerWidth + 100 },
@@ -18,9 +24,10 @@ const swipePower = (offset: number, velocity: number) => {
 
 interface IPrpos {
   data: IGetMoviesResult | undefined;
+  topic: string;
 }
 
-export const Slider = ({ data }: IPrpos) => {
+export const Slider = ({ data, topic }: IPrpos) => {
   const offset = 6;
   const swipeConfidenceThreshold = 10000;
   const [isDragging, setIsDragging] = useRecoilState(animationStroe);
@@ -46,6 +53,7 @@ export const Slider = ({ data }: IPrpos) => {
   };
   return (
     <SliderWrapper>
+      <Topic>{topic}</Topic>
       <ButtonLeft
         whileHover={{ opacity: 1, scale: 1.1 }}
         onClick={() => {
@@ -62,7 +70,6 @@ export const Slider = ({ data }: IPrpos) => {
       >
         <span>&#8594;</span>
       </ButtonRight>
-
       <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
         <Row
           variants={rowNextVarinants}
@@ -91,7 +98,7 @@ export const Slider = ({ data }: IPrpos) => {
             .slice(1)
             .slice(offset * index, offset * index + offset)
             .map(item => (
-              <SliderlistItem key={item.id} movieInfo={item} />
+              <MovieListItem key={item.id} movieInfo={item} />
             ))}
         </Row>
       </AnimatePresence>

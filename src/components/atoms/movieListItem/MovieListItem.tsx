@@ -36,16 +36,16 @@ interface IPops {
   movieInfo: Movies;
 }
 
-export const SliderlistItem = ({ movieInfo }: IPops) => {
+export const MovieListItem = ({ movieInfo }: IPops) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isDragging, setIsDragging] = useRecoilState(animationStroe);
+
+  // 클릭 이벤트
   const onShowMovieInfo = (movieId: string) => {
-    console.log('onShowMovieInfo');
     setSearchParams(createSearchParams({ movieId: movieId }));
   };
-
+  // Slider 드레그 이벤트 발생시 클릭할 수없게 만들기 위해 생성 한 함수
   const onDragState = () => {
-    console.log('onDragState');
     setIsDragging([{ isDragging: false }]);
   };
   return (

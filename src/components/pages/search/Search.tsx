@@ -57,7 +57,6 @@ export const Search = () => {
               </Item>
             ))}
           </ItemList>
-          {movieId ? <MovieListDetail data={data} /> : null}
         </Container>
       )}
     </Wrapper>

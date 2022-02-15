@@ -6,10 +6,10 @@ function fetchNationMovies() {
 }
 
 //영화 정보
-function fetchMovieDetail(movieId: number | undefined) {
+function fetchMovieDetail(movieId: string | null) {
   return fetch(
-    `${process.env.REACT_APP_BASE_PATH}/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-  );
+    `${process.env.REACT_APP_BASE_PATH}/movie/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+  ).then(response => response.json());
 }
 
 //최신 영화
