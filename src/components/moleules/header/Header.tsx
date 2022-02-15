@@ -11,7 +11,7 @@ const scrollVars = {
 };
 
 export const Header = () => {
-  const matchHome = useMatch('/*');
+  const matchHome = useMatch('/');
   const matchTV = useMatch('/tv');
   const navAnimation = useAnimation();
   const { scrollY } = useViewportScroll();
