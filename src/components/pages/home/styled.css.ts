@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   background-color: black;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Banner = styled.div<{ bgPhoto: string }>`
