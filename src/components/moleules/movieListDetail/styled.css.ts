@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 const Overlay = styled(motion.div)`
+  z-index: 10;
   position: fixed;
   top: 0;
   width: 100%;
