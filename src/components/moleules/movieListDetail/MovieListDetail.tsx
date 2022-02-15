@@ -1,14 +1,10 @@
 import { AnimatePresence, useViewportScroll } from 'framer-motion';
 import { useQuery } from 'react-query';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { fetchMovieDetail } from '../../../api/movies';
 import { animationStroe } from '../../../store/stroe';
-import {
-  IGetMoviesResult,
-  MoiveDetail,
-  Movies,
-} from '../../../type/movieDefind';
+import { MoiveDetail } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
 import { Cover, MovieInfo, Overlay, Overview, Title } from './styled.css';

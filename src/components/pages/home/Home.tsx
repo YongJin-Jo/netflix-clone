@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchMovieList } from '.';
 import { Movies } from '../../../type/movieDefind';
 
-import { createImgPath } from '../../../util/imgPath';
 import { MovieListDetail } from '../../moleules/movieListDetail/MovieListDetail';
 import { Slider } from '../../moleules/slider/Slider';
 import { Banner, Overview, Title, Wrapper } from './styled.css';
