@@ -1,4 +1,4 @@
-import { AnimatePresence, useViewportScroll } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { useQuery } from 'react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';

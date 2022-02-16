@@ -3,12 +3,11 @@ import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchTvList } from '.';
 import { fetchTvById } from '../../../api/tv';
-import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
 import { MainBanner } from '../../atoms/mainBanner/MainBanner';
 import { Slider } from '../../moleules/slider/Slider';
 import { VideoListDetail } from '../../moleules/videoListDetail/VideoListDetail';
-import { Banner, Overview, Title, Wrapper } from './styled.css';
+import { Wrapper } from './styled.css';
 
 export const Tv = () => {
   const [searchParams, setSearchParams] = useSearchParams();
