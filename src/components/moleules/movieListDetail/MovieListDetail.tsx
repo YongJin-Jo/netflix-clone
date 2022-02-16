@@ -26,7 +26,6 @@ export const MovieListDetail = ({ movieId, keyward }: IProps) => {
       return data;
     }
   );
-  console.log(data);
 
   const onClick = () => {
     if (keyward != null) {
@@ -53,7 +52,7 @@ export const MovieListDetail = ({ movieId, keyward }: IProps) => {
               <Loder></Loder>
             ) : (
               <>
-                <Cover bgphoto={createImgPath(data?.backdrop_path, 'w500')}>
+                <Cover bgphoto={createImgPath(data?.backdrop_path)}>
                   <Title>{data?.title}</Title>
                 </Cover>
                 <Overview>{data?.overview}</Overview>

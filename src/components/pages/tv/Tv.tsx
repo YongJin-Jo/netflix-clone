@@ -1,9 +1,13 @@
+import { LayoutGroup } from 'framer-motion';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchTvList } from '.';
+import { createImgPath } from '../../../util/imgPath';
+import { Loder } from '../../atoms/loder/Loder';
+import { MainBanner } from '../../atoms/mainBanner/MainBanner';
 import { MovieListDetail } from '../../moleules/movieListDetail/MovieListDetail';
 import { Slider } from '../../moleules/slider/Slider';
-import { Banner, Wrapper } from './styled.css';
+import { Banner, Overview, Title, Wrapper } from './styled.css';
 
 export const Tv = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,9 +19,15 @@ export const Tv = () => {
 
   return (
     <Wrapper>
-      <Banner bgPhoto={''}></Banner>
+      {programSliderList[0].isLoading ? (
+        <Loder />
+      ) : (
+        <MainBanner data={programSliderList[0]} />
+      )}
       {programSliderList.map((item, index) => (
-        <Slider key={index} data={item.data} topic={movieSubject[index]} />
+        <LayoutGroup id={index.toString()}>
+          <Slider key={index} data={item.data} topic={movieSubject[index]} />
+        </LayoutGroup>
       ))}
       {movieId ? <MovieListDetail movieId={movieId} keyward={keyward} /> : null}
     </Wrapper>

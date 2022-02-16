@@ -1,3 +1,4 @@
+import { LayoutGroup } from 'framer-motion';
 import React from 'react';
 import { createSearchParams, useSearchParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -36,12 +37,14 @@ interface IPops {
   movieInfo: Movies;
 }
 
-export const MovieListItem = ({ movieInfo }: IPops) => {
+export const SliderListItem = ({ movieInfo }: IPops) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isDragging, setIsDragging] = useRecoilState(animationStroe);
 
   // 클릭 이벤트
   const onShowMovieInfo = (movieId: string) => {
+    console.log(movieInfo);
+
     setSearchParams(createSearchParams({ movieId: movieId }));
   };
   // Slider 드레그 이벤트 발생시 클릭할 수없게 만들기 위해 생성 한 함수

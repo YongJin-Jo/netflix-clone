@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { animationStroe } from '../../../store/stroe';
 import { IGetMoviesResult } from '../../../type/movieDefind';
-import { MovieListItem } from '../../atoms/movieListItem/MovieListItem';
+import { SliderListItem } from '../../atoms/sliderListItem/SliderListItem';
 import {
   ButtonLeft,
   ButtonRight,
@@ -98,7 +98,7 @@ export const Slider = ({ data, topic }: IPrpos) => {
             .slice(1)
             .slice(offset * index, offset * index + offset)
             .map(item => (
-              <MovieListItem key={item.id} movieInfo={item} />
+              <SliderListItem key={item.id} movieInfo={item} />
             ))}
         </Row>
       </AnimatePresence>

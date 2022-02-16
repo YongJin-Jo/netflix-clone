@@ -19,7 +19,7 @@ const ButtonLeft = styled(motion.button)`
   position: absolute;
   background-color: ${props => props.theme.white.lighter};
   z-index: 1;
-  top: 90px;
+  top: 120px;
   left: 20px;
   padding: 10px;
   border-radius: 50px;
@@ -33,7 +33,7 @@ const ButtonRight = styled(motion.button)`
   z-index: 1;
   padding: 10px;
   border-radius: 50px;
-  top: 90px;
+  top: 120px;
   right: 20px;
   opacity: 0.5;
   font-size: 20px;
