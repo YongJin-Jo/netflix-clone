@@ -2,9 +2,9 @@ import { AnimatePresence, useViewportScroll } from 'framer-motion';
 import { useQuery } from 'react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { fetchMovieDetail } from '../../../api/movies';
 import { animationStroe } from '../../../store/stroe';
 import { MoiveDetail } from '../../../type/movieDefind';
+import { TvDtail } from '../../../type/tvDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
 import { Cover, MovieInfo, Overlay, Overview, Title } from './styled.css';
@@ -12,17 +12,17 @@ import { Cover, MovieInfo, Overlay, Overview, Title } from './styled.css';
 interface IProps {
   movieId: string | null;
   keyward: string | null;
+  fetchFuntion: (id: string | null) => Promise<any>;
 }
 
-export const MovieListDetail = ({ movieId, keyward }: IProps) => {
+export const VideoListDetail = ({ movieId, keyward, fetchFuntion }: IProps) => {
   const animationState = useRecoilValue(animationStroe);
   const location = useLocation();
   const navigate = useNavigate();
-  const { scrollY } = useViewportScroll();
-  const { isLoading, data } = useQuery<MoiveDetail>(
-    ['movies', 'oneMovie'],
+  const { isLoading, data } = useQuery<MoiveDetail & TvDtail>(
+    ['video-work', 'video-work-info'],
     async () => {
-      const data = await fetchMovieDetail(movieId);
+      const data = await fetchFuntion(movieId);
       return data;
     }
   );
@@ -53,13 +53,11 @@ export const MovieListDetail = ({ movieId, keyward }: IProps) => {
             ) : (
               <>
                 <Cover bgphoto={createImgPath(data?.backdrop_path)}>
-                  <Title>{data?.title}</Title>
+                  <Title>{data?.title || data?.name}</Title>
                 </Cover>
                 <Overview>{data?.overview}</Overview>
               </>
             )}
-
-            <Overview>d</Overview>
           </MovieInfo>
         </Overlay>
       )}

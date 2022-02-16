@@ -29,10 +29,17 @@ function fetchTopRatedTv() {
   ).then(response => response.json());
 }
 
+function fetchTvById(id: string | null) {
+  return fetch(
+    `${process.env.REACT_APP_BASE_PATH}/tv/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+  ).then(response => response.json());
+}
+
 export {
   fetchAiringTodaytTv,
   fetchpPopularTv,
   fetchTopRatedTv,
   fetchOnTheAirTv,
   fetchLatestTv,
+  fetchTvById,
 };

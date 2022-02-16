@@ -2,11 +2,12 @@ import { LayoutGroup } from 'framer-motion';
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchTvList } from '.';
+import { fetchTvById } from '../../../api/tv';
 import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
 import { MainBanner } from '../../atoms/mainBanner/MainBanner';
-import { MovieListDetail } from '../../moleules/movieListDetail/MovieListDetail';
 import { Slider } from '../../moleules/slider/Slider';
+import { VideoListDetail } from '../../moleules/videoListDetail/VideoListDetail';
 import { Banner, Overview, Title, Wrapper } from './styled.css';
 
 export const Tv = () => {
@@ -29,7 +30,13 @@ export const Tv = () => {
           <Slider key={index} data={item.data} topic={movieSubject[index]} />
         </LayoutGroup>
       ))}
-      {movieId ? <MovieListDetail movieId={movieId} keyward={keyward} /> : null}
+      {movieId ? (
+        <VideoListDetail
+          movieId={movieId}
+          keyward={keyward}
+          fetchFuntion={fetchTvById}
+        />
+      ) : null}
     </Wrapper>
   );
 };

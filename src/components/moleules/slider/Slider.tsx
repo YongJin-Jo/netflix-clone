@@ -98,7 +98,7 @@ export const Slider = ({ data, topic }: IPrpos) => {
             .slice(1)
             .slice(offset * index, offset * index + offset)
             .map(item => (
-              <SliderListItem key={item.id} movieInfo={item} />
+              <SliderListItem key={item.id} itemInfo={item} />
             ))}
         </Row>
       </AnimatePresence>

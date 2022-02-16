@@ -3,7 +3,8 @@ import React from 'react';
 import { createSearchParams, useSearchParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { animationStroe } from '../../../store/stroe';
-import { Movies } from '../../../type/movieDefind';
+import { MoiveDetail, Movies } from '../../../type/movieDefind';
+import { Tv, TvDtail } from '../../../type/tvDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Box, Info } from './styled.css';
 
@@ -34,17 +35,15 @@ const infoVariants = {
 };
 
 interface IPops {
-  movieInfo: Movies;
+  itemInfo: any;
 }
 
-export const SliderListItem = ({ movieInfo }: IPops) => {
+export const SliderListItem = ({ itemInfo }: IPops) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isDragging, setIsDragging] = useRecoilState(animationStroe);
 
   // 클릭 이벤트
   const onShowMovieInfo = (movieId: string) => {
-    console.log(movieInfo);
-
     setSearchParams(createSearchParams({ movieId: movieId }));
   };
   // Slider 드레그 이벤트 발생시 클릭할 수없게 만들기 위해 생성 한 함수
@@ -53,20 +52,20 @@ export const SliderListItem = ({ movieInfo }: IPops) => {
   };
   return (
     <Box
-      layoutId={movieInfo.id.toString()}
+      layoutId={itemInfo.id.toString()}
       onClick={() => {
         isDragging[0].isDragging
           ? onDragState()
-          : onShowMovieInfo(movieInfo.id.toString());
+          : onShowMovieInfo(itemInfo.id.toString());
       }}
       variants={boxVars}
       initial="nomal"
       whileHover="hover"
       transition={{ type: 'tween' }}
-      bgpoto={createImgPath(movieInfo.poster_path, 'w500')}
+      bgpoto={createImgPath(itemInfo.poster_path, 'w500')}
     >
       <Info variants={infoVariants}>
-        <h4>{movieInfo.title}</h4>
+        <h4>{itemInfo.title || itemInfo.name}</h4>
       </Info>
     </Box>
   );

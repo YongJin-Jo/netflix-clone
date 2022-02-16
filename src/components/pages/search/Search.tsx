@@ -4,7 +4,6 @@ import { fetchSearchMovies } from '../../../api/movies';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
-import { MovieListDetail } from '../../moleules/movieListDetail/MovieListDetail';
 import {
   BigTitle,
   Box,

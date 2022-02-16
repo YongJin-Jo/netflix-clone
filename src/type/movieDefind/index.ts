@@ -1,3 +1,5 @@
+import { Tv } from '../tvDefind';
+
 interface MoiveDetail {
   adult: boolean;
   backdrop_path: string;
@@ -48,7 +50,7 @@ interface IGetMoviesResult {
     minimum: string;
   };
   page: number;
-  results: Movies[];
+  results: Movies[] & Tv[];
   total_pages: string;
   total_results: string;
 }
