@@ -1,21 +1,22 @@
-import { LayoutGroup } from 'framer-motion';
-import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { fetchMovieList } from '.';
-import { fetchMovieById } from '../../../api/movies';
 
-import { Loder } from '../../atoms/loder/Loder';
-import { MainBanner } from '../../atoms/mainBanner/MainBanner';
 import { VideoListDetail } from '../../moleules/videoListDetail/VideoListDetail';
 import { Slider } from '../../moleules/slider/Slider';
 import { Wrapper } from './styled.css';
+import { MainBanner } from '../../atoms/mainBanner/MainBanner';
+import { fetchMovieById } from '../../../api/movies';
+import { useSearchParams } from 'react-router-dom';
+import { Loder } from '../../atoms/loder/Loder';
 
 export const Home = () => {
+  const [movieBanner, setMovieBanner] = useState<any>({});
   const [searchParams, setSearchParams] = useSearchParams();
-  const movieSliderList = fetchMovieList();
-  const movieSubject = ['인기작품', '최신작품', '국가별 작품', '개봉예정 작품'];
   const keyward = searchParams.get('keyward');
-  const movieId = searchParams.get('movieId');
-  console.log(movieSliderList);
+  const videoId = searchParams.get('videoId');
+  const movieSubject = ['인기작품', '순위작품', '방영 중인 목록', '방영 예정'];
+
+  const movieSliderList = fetchMovieList();
 
   return (
     <Wrapper>
@@ -25,13 +26,11 @@ export const Home = () => {
         <MainBanner data={movieSliderList[0]} />
       )}
       {movieSliderList.map((item, index) => (
-        <LayoutGroup id={index.toString()}>
-          <Slider key={index} data={item.data} topic={movieSubject[index]} />
-        </LayoutGroup>
+        <Slider key={index} data={item.data} topic={movieSubject[index]} />
       ))}
-      {movieId ? (
+      {videoId ? (
         <VideoListDetail
-          movieId={movieId}
+          videoId={videoId}
           keyward={keyward}
           fetchFuntion={fetchMovieById}
         />

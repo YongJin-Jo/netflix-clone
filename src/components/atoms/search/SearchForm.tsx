@@ -11,17 +11,17 @@ export const SearchForm = () => {
   const [toggle, setToggle] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { register, handleSubmit, setValue } = useForm<IFrom>();
+  const { register, handleSubmit, setValue } = useForm<IForm>();
   const navigate = useNavigate();
   const onClick = () => {
     setToggle(prev => !prev);
   };
 
-  interface IFrom {
+  interface IForm {
     keyward: string;
   }
 
-  const onValid = (data: IFrom) => {
+  const onValid = (data: IForm) => {
     setValue('keyward', '');
     setSearchParams(createSearchParams({ keyward: data.keyward }));
     navigate(`/search?keyward=${data.keyward}`);

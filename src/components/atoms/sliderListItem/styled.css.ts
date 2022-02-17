@@ -1,9 +1,13 @@
 import { motion } from 'framer-motion';
+import { url } from 'inspector';
 import styled from 'styled-components';
 
-const Box = styled(motion.div)<{ bgpoto: string }>`
+const Box = styled(motion.div)<{ bgpoto: string | null }>`
   background-size: 100% 200px;
-  background-image: url(${props => props.bgpoto});
+  background-image: ${props =>
+    props.bgpoto != null
+      ? `url(${props.bgpoto})`
+      : `url(${props.theme.defalutImg})`};
   background-repeat: no-repeat;
   background-position: center center;
   background-color: ${props => props.theme.black.darker};

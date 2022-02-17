@@ -1,61 +1,105 @@
-import { useQuery } from 'react-query';
-import { createSearchParams, useSearchParams } from 'react-router-dom';
+import { useRef } from 'react';
+import { useForm } from 'react-hook-form';
+import { useQueries } from 'react-query';
+import {
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { fetchSearchMovies } from '../../../api/movies';
+import { fetchSearchTv } from '../../../api/tv';
 import { IGetMoviesResult } from '../../../type/movieDefind';
-import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
+import { SliderListItem } from '../../atoms/sliderListItem/SliderListItem';
 import {
   BigTitle,
-  Box,
   Container,
-  Item,
+  FromWrapper,
+  Input,
   ItemList,
+  SearchFrom,
+  Svg,
   Wrapper,
 } from './styled.css';
 
 export const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { register, handleSubmit, setValue } = useForm<IForm>();
   const keyward = searchParams.get('keyward');
-  const movieId = searchParams.get('movieId');
-  const { data, isLoading } = useQuery<IGetMoviesResult>(
-    ['movies', 'serchMovies'],
-    async () => {
-      const data = await fetchSearchMovies(keyward);
-      return data;
-    }
-  );
+  const videoId = searchParams.get('videoId');
+  const serchValue = useRef(keyward);
 
-  const onClick = (movieId: string) => {
+  const searchList = useQueries<IGetMoviesResult[]>([
+    {
+      queryKey: ['search', 'movies'],
+      queryFn: async () => {
+        const data = fetchSearchMovies(keyward);
+        return data;
+      },
+    },
+    {
+      queryKey: ['search', 'tv'],
+      queryFn: async () => {
+        const data = fetchSearchTv(keyward);
+        return data;
+      },
+    },
+  ]);
+  const len = searchList.length;
+
+  const onClick = (videoId: string) => {
     setSearchParams(
       createSearchParams({
         keyward: keyward as string,
-        movieId: movieId,
+        videoId: videoId,
       })
     );
   };
 
+  interface IForm {
+    keyward: string;
+  }
+
+  const onValid = (data: IForm) => {
+    setValue('keyward', '');
+    setSearchParams(createSearchParams({ keyward: data.keyward }));
+    navigate(`/search?keyward=${data.keyward}`);
+  };
   return (
     <Wrapper>
-      {isLoading ? (
+      {searchList[len - 1].isLoading ? (
         <Loder />
       ) : (
         <Container>
-          <BigTitle>SearchList:{keyward}</BigTitle>
-          <ItemList>
-            {data?.results.map(item => (
-              <Item
-                layoutId={movieId as string}
-                key={item.id}
-                onClick={() => {
-                  onClick(item.id.toString());
-                }}
+          <FromWrapper>
+            <SearchFrom onSubmit={handleSubmit(onValid)}>
+              <Svg
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <Box bgpoto={createImgPath(item.backdrop_path, 'w500')}>
-                  {item.title}
-                </Box>
-              </Item>
-            ))}
-          </ItemList>
+                <path
+                  fillRule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clipRule="evenodd"
+                ></path>
+              </Svg>
+              <Input
+                {...register('keyward', { required: true, minLength: 2 })}
+                type="text"
+              />
+            </SearchFrom>
+          </FromWrapper>
+
+          <BigTitle>{keyward}</BigTitle>
+          {searchList.map((list: any, index) => (
+            <ItemList key={index}>
+              {list.data.results.map((item: any) => (
+                <SliderListItem itemInfo={item} />
+              ))}
+            </ItemList>
+          ))}
         </Container>
       )}
     </Wrapper>

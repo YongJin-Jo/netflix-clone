@@ -14,8 +14,7 @@ export const Tv = () => {
   const programSliderList = fetchTvList();
   const movieSubject = ['인기작품', '순위작품', '방영 중인 목록', '방영 목록'];
   const keyward = searchParams.get('keyward');
-  const movieId = searchParams.get('movieId');
-  console.log(programSliderList);
+  const videoId = searchParams.get('videoId');
 
   return (
     <Wrapper>
@@ -29,9 +28,9 @@ export const Tv = () => {
           <Slider key={index} data={item.data} topic={movieSubject[index]} />
         </LayoutGroup>
       ))}
-      {movieId ? (
+      {videoId ? (
         <VideoListDetail
-          movieId={movieId}
+          videoId={videoId}
           keyward={keyward}
           fetchFuntion={fetchTvById}
         />

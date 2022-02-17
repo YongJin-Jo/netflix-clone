@@ -29,9 +29,17 @@ function fetchTopRatedTv() {
   ).then(response => response.json());
 }
 
+// 프로그램 상세 정보
 function fetchTvById(id: string | null) {
   return fetch(
     `${process.env.REACT_APP_BASE_PATH}/tv/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+  ).then(response => response.json());
+}
+
+// 프로그램 검색
+function fetchSearchTv(keyword: string | null) {
+  return fetch(
+    `${process.env.REACT_APP_BASE_PATH}/search/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1&query=${keyword}&include_adult=false&region=kr`
   ).then(response => response.json());
 }
 
@@ -42,4 +50,5 @@ export {
   fetchOnTheAirTv,
   fetchLatestTv,
   fetchTvById,
+  fetchSearchTv,
 };

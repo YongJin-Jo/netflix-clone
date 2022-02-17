@@ -41,10 +41,19 @@ interface IPops {
 export const SliderListItem = ({ itemInfo }: IPops) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isDragging, setIsDragging] = useRecoilState(animationStroe);
+  const keyward = searchParams.get('keyward');
 
   // 클릭 이벤트
-  const onShowMovieInfo = (movieId: string) => {
-    setSearchParams(createSearchParams({ movieId: movieId }));
+  const onShowMovieInfo = (videoId: string) => {
+    if (keyward) {
+      return setSearchParams(
+        createSearchParams({
+          keyward,
+          videoId,
+        })
+      );
+    }
+    setSearchParams(createSearchParams({ videoId: videoId }));
   };
   // Slider 드레그 이벤트 발생시 클릭할 수없게 만들기 위해 생성 한 함수
   const onDragState = () => {
@@ -62,7 +71,11 @@ export const SliderListItem = ({ itemInfo }: IPops) => {
       initial="nomal"
       whileHover="hover"
       transition={{ type: 'tween' }}
-      bgpoto={createImgPath(itemInfo.poster_path, 'w500')}
+      bgpoto={
+        itemInfo.poster_path != null
+          ? createImgPath(itemInfo.poster_path, 'w500')
+          : null
+      }
     >
       <Info variants={infoVariants}>
         <h4>{itemInfo.title || itemInfo.name}</h4>

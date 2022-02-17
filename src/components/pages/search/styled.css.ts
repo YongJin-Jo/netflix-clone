@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const BigTitle = styled.h3`
   padding: 20px;
-  margin-top: 100px;
+  margin-top: 50px;
   font-size: 48px;
 `;
 
@@ -22,14 +22,44 @@ const ItemList = styled.ul`
   grid-template-columns: repeat(6, 1fr);
 `;
 
-const Item = styled(motion.li)``;
-const Box = styled(motion.div)<{ bgpoto: string }>`
-  background-size: 100% 200px;
-  background-image: url(${props => props.bgpoto});
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-color: ${props => props.theme.black.darker};
-  height: 200px;
+const SearchFrom = styled.form`
+  position: relative;
 `;
 
-export { Wrapper, Container, BigTitle, Item, ItemList, Box };
+const FromWrapper = styled.div`
+  margin-top: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Input = styled.input`
+  width: 600px;
+  height: 50px;
+  transform-origin: right center;
+  background-color: transparent;
+  border: 1px solid ${props => props.theme.white.lighter};
+  color: white;
+  padding-left: 70px;
+  font-size: 24px;
+  border-radius: 50px;
+`;
+
+const Svg = styled.svg`
+  cursor: pointer;
+  position: absolute;
+  width: 30px;
+  top: 10px;
+  left: 25px;
+`;
+
+export {
+  Svg,
+  Wrapper,
+  FromWrapper,
+  Container,
+  BigTitle,
+  ItemList,
+  Input,
+  SearchFrom,
+};

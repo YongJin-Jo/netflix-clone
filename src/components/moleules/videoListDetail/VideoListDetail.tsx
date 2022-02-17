@@ -10,19 +10,19 @@ import { Loder } from '../../atoms/loder/Loder';
 import { Cover, MovieInfo, Overlay, Overview, Title } from './styled.css';
 
 interface IProps {
-  movieId: string | null;
+  videoId: string | null;
   keyward: string | null;
   fetchFuntion: (id: string | null) => Promise<any>;
 }
 
-export const VideoListDetail = ({ movieId, keyward, fetchFuntion }: IProps) => {
+export const VideoListDetail = ({ videoId, keyward, fetchFuntion }: IProps) => {
   const animationState = useRecoilValue(animationStroe);
   const location = useLocation();
   const navigate = useNavigate();
   const { isLoading, data } = useQuery<MoiveDetail & TvDtail>(
     ['video-work', 'video-work-info'],
     async () => {
-      const data = await fetchFuntion(movieId);
+      const data = await fetchFuntion(videoId);
       return data;
     }
   );
@@ -43,7 +43,7 @@ export const VideoListDetail = ({ movieId, keyward, fetchFuntion }: IProps) => {
           onClick={onClick}
         >
           <MovieInfo
-            layoutId={movieId as string}
+            layoutId={videoId as string}
             style={{
               top: 80,
             }}
