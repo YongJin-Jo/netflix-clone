@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { createImgPath } from '../../../util/imgPath';
 
-const Banner = styled(motion.div)<{ bgPhoto: string }>`
+const Banner = styled(motion.div)<{ bgphoto: string }>`
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 60px;
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
-    url(${props => props.bgPhoto});
+    url(${props => props.bgphoto});
   background-size: cover;
 `;
 const Title = styled.h2`
@@ -43,7 +43,7 @@ export const MainBanner = ({ data }: IProps) => {
         initial="initial"
         animate="animate"
         exit="exit"
-        bgPhoto={createImgPath(data.data.results[0].backdrop_path)}
+        bgphoto={createImgPath(data.data.results[0].backdrop_path)}
       >
         <Title>{data.data.results[0].title || data.data.results[0].name}</Title>
         <Overview>{data.data.results[0].overview}</Overview>

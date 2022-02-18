@@ -71,7 +71,7 @@ export const SliderListItem = ({ itemInfo }: IPops) => {
       initial="nomal"
       whileHover="hover"
       transition={{ type: 'tween' }}
-      bgpoto={
+      bgphoto={
         itemInfo.poster_path != null
           ? createImgPath(itemInfo.poster_path, 'w500')
           : null

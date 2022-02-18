@@ -11,15 +11,19 @@ import {
   BookmarkButton,
   ButtonWrapper,
   Cover,
-  DetailWarpper,
+  DetailWrapper,
   DounButton,
+  Genres,
+  GenresWrapper,
   MovieInfo,
   Overlay,
   Overview,
   PlayButton,
-  PositionWarraper,
+  PositionWrapper,
+  ReleaseDate,
   Title,
   UpButton,
+  VideoHistoryWrapper,
 } from './styled.css';
 
 interface IProps {
@@ -39,7 +43,6 @@ export const VideoListDetail = ({ videoId, keyward, fetchFuntion }: IProps) => {
       return data;
     }
   );
-  console.log(data);
 
   const onClick = () => {
     if (keyward != null) {
@@ -67,7 +70,7 @@ export const VideoListDetail = ({ videoId, keyward, fetchFuntion }: IProps) => {
             ) : (
               <>
                 <Cover bgphoto={createImgPath(data?.backdrop_path)}>
-                  <PositionWarraper>
+                  <PositionWrapper>
                     <Title>{data?.title || data?.name}</Title>
                     <ButtonWrapper>
                       <PlayButton>Play</PlayButton>
@@ -75,17 +78,23 @@ export const VideoListDetail = ({ videoId, keyward, fetchFuntion }: IProps) => {
                       <UpButton>Up</UpButton>
                       <DounButton>Doun</DounButton>
                     </ButtonWrapper>
-                  </PositionWarraper>
+                  </PositionWrapper>
                 </Cover>
-                <DetailWarpper>
-                  <div>
-                    <span>{data?.release_date || data?.first_air_date}</span>
-                    <span></span>
-                    <span>{data?.popularity}</span>
-                  </div>
+                <DetailWrapper>
+                  <VideoHistoryWrapper>
+                    <ReleaseDate>
+                      {data?.release_date || data?.first_air_date}
+                    </ReleaseDate>
+                  </VideoHistoryWrapper>
+                  <GenresWrapper>
+                    <h3>Genres</h3>
+                    {data?.genres.map(item => (
+                      <Genres key={item.id}> {item.name}</Genres>
+                    ))}
+                  </GenresWrapper>
 
                   <Overview>{data?.overview}</Overview>
-                </DetailWarpper>
+                </DetailWrapper>
               </>
             )}
           </MovieInfo>

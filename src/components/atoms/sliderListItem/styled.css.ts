@@ -2,11 +2,11 @@ import { motion } from 'framer-motion';
 import { url } from 'inspector';
 import styled from 'styled-components';
 
-const Box = styled(motion.div)<{ bgpoto: string | null }>`
+const Box = styled(motion.div)<{ bgphoto: string | null }>`
   background-size: 100% 200px;
   background-image: ${props =>
-    props.bgpoto != null
-      ? `url(${props.bgpoto})`
+    props.bgphoto != null
+      ? `url(${props.bgphoto})`
       : `url(${props.theme.defalutImg})`};
   background-repeat: no-repeat;
   background-position: center center;

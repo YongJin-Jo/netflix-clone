@@ -15,7 +15,7 @@ const MovieInfo = styled(motion.div)`
   position: absolute;
   background-color: ${props => props.theme.black.darker};
   width: 45vw;
-  height: 100vh;
+  height: 90vh;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -31,7 +31,7 @@ const Cover = styled.div<{ bgphoto: string }>`
   position: relative;
 `;
 
-const PositionWarraper = styled.div`
+const PositionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -77,16 +77,41 @@ const Title = styled.h3`
   margin-bottom: 10px;
 `;
 
-const DetailWarpper = styled.div`
+const DetailWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px;
 `;
+
+const Genres = styled.span`
+  border: 1px solid ${props => props.theme.white.lighter};
+  padding: 8px;
+  margin: 5px;
+  border-radius: 15px;
+  font-size: 12px;
+`;
+
+const VideoHistoryWrapper = styled.span`
+  display: flex;
+`;
+
+const ReleaseDate = styled.span``;
+
 const Overview = styled.p`
   margin: 20px 0;
+  font-size: 20px;
+`;
+
+const GenresWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
 `;
 
 export {
+  GenresWrapper,
+  ReleaseDate,
+  Genres,
   Overlay,
   MovieInfo,
   Cover,
@@ -96,7 +121,8 @@ export {
   DounButton,
   PlayButton,
   BookmarkButton,
-  PositionWarraper,
+  PositionWrapper,
   ButtonWrapper,
-  DetailWarpper,
+  DetailWrapper,
+  VideoHistoryWrapper,
 };

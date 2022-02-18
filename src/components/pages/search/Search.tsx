@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useQueries } from 'react-query';
 import {
@@ -6,11 +6,13 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { fetchSearchMovies } from '../../../api/movies';
+import { fetchSearchList } from '.';
+import { fetchMovieById, fetchSearchMovies } from '../../../api/movies';
 import { fetchSearchTv } from '../../../api/tv';
 import { IGetMoviesResult } from '../../../type/movieDefind';
 import { Loder } from '../../atoms/loder/Loder';
 import { SliderListItem } from '../../atoms/sliderListItem/SliderListItem';
+import { VideoListDetail } from '../../moleules/videoListDetail/VideoListDetail';
 import {
   BigTitle,
   Container,
@@ -28,28 +30,12 @@ export const Search = () => {
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const keyward = searchParams.get('keyward');
   const videoId = searchParams.get('videoId');
-  const serchValue = useRef(keyward);
-
-  const searchList = useQueries<IGetMoviesResult[]>([
-    {
-      queryKey: ['search', 'movies'],
-      queryFn: async () => {
-        const data = fetchSearchMovies(keyward);
-        return data;
-      },
-    },
-    {
-      queryKey: ['search', 'tv'],
-      queryFn: async () => {
-        const data = fetchSearchTv(keyward);
-        return data;
-      },
-    },
-  ]);
-
-  console.log(searchList);
-
+  const searchList = fetchSearchList(keyward);
   const len = searchList.length;
+
+  useEffect(() => {
+    return;
+  }, [keyward]);
 
   const onClick = (videoId: string) => {
     setSearchParams(
@@ -103,6 +89,13 @@ export const Search = () => {
               ))}
             </ItemList>
           ))}
+          {videoId ? (
+            <VideoListDetail
+              videoId={videoId}
+              keyward={keyward}
+              fetchFuntion={fetchMovieById}
+            />
+          ) : null}
         </Container>
       )}
     </Wrapper>
