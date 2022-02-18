@@ -46,6 +46,9 @@ export const Search = () => {
       },
     },
   ]);
+
+  console.log(searchList);
+
   const len = searchList.length;
 
   const onClick = (videoId: string) => {

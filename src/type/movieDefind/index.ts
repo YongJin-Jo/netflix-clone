@@ -5,7 +5,7 @@ interface MoiveDetail {
   backdrop_path: string;
   belongs_to_collection: object;
   budget: number;
-  genres: object;
+  genres: genres[];
   homepage: string;
   id: number;
   imdb_id: string;
@@ -26,6 +26,11 @@ interface MoiveDetail {
   video: boolean;
   vote_average: number;
   vote_count: number;
+}
+
+interface genres {
+  id: number;
+  name: string;
 }
 
 interface Movies {

@@ -7,7 +7,20 @@ import { MoiveDetail } from '../../../type/movieDefind';
 import { TvDtail } from '../../../type/tvDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Loder } from '../../atoms/loder/Loder';
-import { Cover, MovieInfo, Overlay, Overview, Title } from './styled.css';
+import {
+  BookmarkButton,
+  ButtonWrapper,
+  Cover,
+  DetailWarpper,
+  DounButton,
+  MovieInfo,
+  Overlay,
+  Overview,
+  PlayButton,
+  PositionWarraper,
+  Title,
+  UpButton,
+} from './styled.css';
 
 interface IProps {
   videoId: string | null;
@@ -26,6 +39,7 @@ export const VideoListDetail = ({ videoId, keyward, fetchFuntion }: IProps) => {
       return data;
     }
   );
+  console.log(data);
 
   const onClick = () => {
     if (keyward != null) {
@@ -53,9 +67,25 @@ export const VideoListDetail = ({ videoId, keyward, fetchFuntion }: IProps) => {
             ) : (
               <>
                 <Cover bgphoto={createImgPath(data?.backdrop_path)}>
-                  <Title>{data?.title || data?.name}</Title>
+                  <PositionWarraper>
+                    <Title>{data?.title || data?.name}</Title>
+                    <ButtonWrapper>
+                      <PlayButton>Play</PlayButton>
+                      <BookmarkButton>+</BookmarkButton>
+                      <UpButton>Up</UpButton>
+                      <DounButton>Doun</DounButton>
+                    </ButtonWrapper>
+                  </PositionWarraper>
                 </Cover>
-                <Overview>{data?.overview}</Overview>
+                <DetailWarpper>
+                  <div>
+                    <span>{data?.release_date || data?.first_air_date}</span>
+                    <span></span>
+                    <span>{data?.popularity}</span>
+                  </div>
+
+                  <Overview>{data?.overview}</Overview>
+                </DetailWarpper>
               </>
             )}
           </MovieInfo>

@@ -7,7 +7,7 @@ interface TvDtail {
   created_by: object;
   episode_run_time: object;
   first_air_date: string;
-  genres: object;
+  genres: genres[];
   homepage: string;
   id: number;
   in_production: boolean;
@@ -34,6 +34,11 @@ interface TvDtail {
   type: string;
   vote_average: number;
   vote_count: number;
+}
+
+interface genres {
+  id: number;
+  name: string;
 }
 
 interface Tv {
