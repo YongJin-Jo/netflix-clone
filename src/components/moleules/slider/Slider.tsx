@@ -12,26 +12,29 @@ import {
   Topic,
 } from './styled.css';
 
-const rowNextVarinants = {
-  hidden: { x: window.outerWidth + 100 },
-  visible: { x: 0 },
-  exit: { x: -window.outerWidth - 100 },
-};
-
-const swipePower = (offset: number, velocity: number) => {
-  return Math.abs(offset) * velocity;
-};
-
 interface IPrpos {
   data: IGetMoviesResult | undefined;
   topic: string;
 }
+
+// 슬라이드 애니매이션 구현 객체
+const rowNextVarinants = {
+  hidden: (directionRight: any) => ({ x: directionRight ? 2000 : -2000 }),
+  visible: { x: 0 },
+  exit: (directionRight: any) => ({ x: directionRight ? -2000 : 2000 }),
+};
+
+// drag 비교값
+const swipePower = (offset: number, velocity: number) => {
+  return Math.abs(offset) * velocity;
+};
 
 export const Slider = ({ data, topic }: IPrpos) => {
   const offset = 6;
   const swipeConfidenceThreshold = 10000;
   const [isDragging, setIsDragging] = useRecoilState(animationStroe);
   const [leving, setLeving] = useState(false);
+  const [directionRight, setDirectionRight] = useState(true);
   const [index, setIndex] = useState(0);
   const paginate = (sliderIndex: number) => {
     if (data) {
@@ -51,12 +54,14 @@ export const Slider = ({ data, topic }: IPrpos) => {
   const toggleLeaving = () => {
     setLeving(prev => !prev);
   };
+
   return (
     <SliderWrapper>
       <Topic>{topic}</Topic>
       <ButtonLeft
         whileHover={{ opacity: 1, scale: 1.1 }}
         onClick={() => {
+          setDirectionRight(false);
           paginate(-1);
         }}
       >
@@ -65,13 +70,19 @@ export const Slider = ({ data, topic }: IPrpos) => {
       <ButtonRight
         whileHover={{ opacity: 1, scale: 1.1 }}
         onClick={() => {
+          setDirectionRight(true);
           paginate(1);
         }}
       >
         <span>&#8594;</span>
       </ButtonRight>
-      <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+      <AnimatePresence
+        initial={false}
+        onExitComplete={toggleLeaving}
+        custom={directionRight}
+      >
         <Row
+          custom={directionRight}
           variants={rowNextVarinants}
           initial="hidden"
           animate="visible"
@@ -87,8 +98,10 @@ export const Slider = ({ data, topic }: IPrpos) => {
             const swipe = swipePower(offset.x, velocity.x);
 
             if (swipe < -swipeConfidenceThreshold) {
+              setDirectionRight(true);
               paginate(1);
             } else if (swipe > swipeConfidenceThreshold) {
+              setDirectionRight(false);
               paginate(-1);
             }
             return;

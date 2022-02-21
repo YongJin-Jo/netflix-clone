@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { fetchMovieList } from '.';
 
 import { VideoListDetail } from '../../moleules/videoListDetail/VideoListDetail';

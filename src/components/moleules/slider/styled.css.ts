@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
 const SliderWrapper = styled.div`
-  height: 220px;
+  height: 270px;
   position: relative;
   margin: 30px 0;
 `;

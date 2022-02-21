@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useQueries } from 'react-query';
 import {
   createSearchParams,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
 import { fetchSearchList } from '.';
-import { fetchMovieById, fetchSearchMovies } from '../../../api/movies';
-import { fetchSearchTv } from '../../../api/tv';
-import { IGetMoviesResult } from '../../../type/movieDefind';
+import { fetchMovieById } from '../../../api/movies';
 import { Loder } from '../../atoms/loder/Loder';
 import { SliderListItem } from '../../atoms/sliderListItem/SliderListItem';
 import { VideoListDetail } from '../../moleules/videoListDetail/VideoListDetail';

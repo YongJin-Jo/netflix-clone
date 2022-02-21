@@ -1,10 +1,6 @@
-import { LayoutGroup } from 'framer-motion';
-import React from 'react';
 import { createSearchParams, useSearchParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { animationStroe } from '../../../store/stroe';
-import { MoiveDetail, Movies } from '../../../type/movieDefind';
-import { Tv, TvDtail } from '../../../type/tvDefind';
 import { createImgPath } from '../../../util/imgPath';
 import { Box, Info } from './styled.css';
 
