@@ -8,7 +8,7 @@ import App from './App';
 import { GlobalStyle } from './asset/css/default.css';
 import { theme } from './asset/css/theme/theme.css';
 
-const client = new QueryClient();
+export const client = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>

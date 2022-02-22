@@ -5,6 +5,7 @@ import {
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
+import { client } from '../../..';
 import { Input, Svg, Wrapper } from './styled.css';
 
 export const SearchForm = () => {
@@ -21,7 +22,7 @@ export const SearchForm = () => {
     keyward: string;
   }
 
-  const onValid = (data: IForm) => {
+  const onValid = async (data: IForm) => {
     setValue('keyward', '');
     setSearchParams(createSearchParams({ keyward: data.keyward }));
     navigate(`/search?keyward=${data.keyward}`);

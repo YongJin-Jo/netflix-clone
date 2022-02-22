@@ -5,9 +5,7 @@ const Wrapper = styled.div`
   width: 100%;
 `;
 
-const Container = styled.div`
-  height: 100vh;
-`;
+const Container = styled.div``;
 
 const BigTitle = styled.h3`
   padding: 20px;

@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
+import { Key, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   createSearchParams,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { fetchSearchList } from '.';
+import { fetchSearchMoviesList, fetchSearchTvList } from '.';
+import { client } from '../../..';
 import { fetchMovieById } from '../../../api/movies';
 import { Loder } from '../../atoms/loder/Loder';
 import { SliderListItem } from '../../atoms/sliderListItem/SliderListItem';
@@ -27,8 +28,8 @@ export const Search = () => {
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const keyward = searchParams.get('keyward');
   const videoId = searchParams.get('videoId');
-  const searchList = fetchSearchList(keyward);
-  const len = searchList.length;
+  const searchMoviesList = fetchSearchMoviesList(keyward);
+  const searchTvList = fetchSearchTvList(keyward);
 
   useEffect(() => {
     return;
@@ -51,10 +52,12 @@ export const Search = () => {
     setValue('keyward', '');
     setSearchParams(createSearchParams({ keyward: data.keyward }));
     navigate(`/search?keyward=${data.keyward}`);
+    searchMoviesList.refetch();
+    searchTvList.refetch();
   };
   return (
     <Wrapper>
-      {searchList[len - 1].isLoading ? (
+      {searchMoviesList.isLoading ? (
         <Loder />
       ) : (
         <Container>
@@ -79,13 +82,25 @@ export const Search = () => {
           </FromWrapper>
 
           <BigTitle>{keyward}</BigTitle>
-          {searchList.map((list: any, index) => (
-            <ItemList key={index}>
-              {list.data.results.map((item: any) => (
-                <SliderListItem itemInfo={item} />
-              ))}
+          {searchMoviesList.isLoading ? null : (
+            <ItemList>
+              {searchMoviesList.data.results.map(
+                (item: { id: Key | null | undefined }) => (
+                  <SliderListItem key={item.id} itemInfo={item} />
+                )
+              )}
             </ItemList>
-          ))}
+          )}
+          {searchTvList.isLoading ? null : (
+            <ItemList>
+              {searchTvList.data.results.map(
+                (item: { id: Key | null | undefined }) => (
+                  <SliderListItem key={item.id} itemInfo={item} />
+                )
+              )}
+            </ItemList>
+          )}
+
           {videoId ? (
             <VideoListDetail
               videoId={videoId}
