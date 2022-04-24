@@ -13,7 +13,7 @@ export const client = new QueryClient();
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <QueryClientProvider client={client}>
           <ThemeProvider theme={theme}>
             <GlobalStyle />
