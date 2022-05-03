@@ -1,46 +1,25 @@
-# Getting Started with Create React App
+# The Movie Api 를 이용한 넷플릭스 클론 만들기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[페이지 바로가기](https://yongjin-jo.github.io/netflix-clone/)
 
-## Available Scripts
+### 사용 라이브러리
+- react-query
+- recoil
+- styled-components
+- framer-motion
+- react-hook-form
+  
+## 주요 기능 구현
 
-In the project directory, you can run:
+### 검색 기능/ 검색 페이지 구현
+  ![SearchPage](markdown/img/searchPage.png)
+  TopBar 검색창에 검색어를 입력하면 이동되는 페이지 입니다.
+  react-hook-form을 사용했으며 검색 데이터는 상태관리 라이브러리인 react-query로 저장됩니다.
+### 슬라이더 기능 구현
+  ![SearchPage](markdown/img/slider.png)
+  framer-motion 라이브러리를 사용하여 구현 하였습니다. 
+  framer-motion를 사용한 이유는 보통 Slider는 클릭 이벤트로 만들기는 쉽지만 클릭이 끝난후 사라는 데이터의 애니메션의 효과를 넣기 까다롭습니다.
+  하지만 framer-motion를 사용하면 시작뿐만 아니라 끝 애니메이션까지 자연스러운 애니메이션 효과를 줄수 있었습니다. 그리고 슬라이더의 마우스 드래그 이벤트를 추가할 때 더욱 간편하게 적용할 수 있었스빈다.
 
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 디테일 페이지 구현
+  ![SearchPage](markdown/img/detail.png)
